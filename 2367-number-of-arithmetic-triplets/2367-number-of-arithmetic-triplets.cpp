@@ -1,13 +1,11 @@
 class Solution {
 public:
-    int arithmeticTriplets(vector<int>& nums, int diff) {
-        int cnt=0;
-        for(int i=0; i<nums.size(); i++){
-            for(int j=i; j<nums.size(); j++){
-                for(int k=j; k<nums.size(); k++){
-                   if((nums[j] - nums[i] == diff)&&(nums[k] - nums[j] == diff)) cnt++;
-                }
-            }
+    int arithmeticTriplets(vector<int>& nums, int d) {
+        int cnt=0 , n=nums.size();
+        map<int,int> mp;
+        for(int i=0; i<n; i++) mp[nums[i]]++;
+        for(int i=0; i<n; i++) {
+            if(mp[nums[i]-d]&&mp[nums[i]-2*d]) cnt++;
         }
         return cnt;
     }
