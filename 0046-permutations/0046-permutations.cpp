@@ -1,30 +1,21 @@
 class Solution {
 public:
-    void function(vector<int> &nums,vector<int>&ds,  map<int, int> &freq,vector<vector<int>>& res){
-        if(nums.size()==ds.size()){
-            res.emplace_back(ds);
+    void function(vector<int> &nums, vector<vector<int>>& res, int ind){
+        if(nums.size()==ind){
+            res.emplace_back(nums);
             return;
         }
-        for(int i=0; i<nums.size(); i++){
-            if(freq[i]!=1){
-                freq[i]=1;
-                ds.emplace_back(nums[i]);
-                
-                function(nums, ds, freq, res);
-                freq[i]=0;
-                ds.pop_back();
-            }
+        for(int i=ind; i<nums.size(); i++){
+                swap(nums[i], nums[ind]);                
+                function(nums, res, ind+1);
+                swap(nums[i], nums[ind]);
         }
         
     }
     
     vector<vector<int>> permute(vector<int>& nums) {
        vector<vector<int>> res;
-       vector<int> ds;
-       // int freq[nums.size()];
-       //  for(int i=0; i<nums.size(); i++) freq[i]=0;
-       map<int, int> freq;
-       function(nums, ds, freq, res);
+       function(nums, res, 0);
        return res;
     }
 };
